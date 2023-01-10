@@ -5,6 +5,7 @@
 * 1、学会了抛出异常和接收异常
 * 2、命名空间可以不连续，可以套娃
 * 3、using语句
+* 4、命名空间和作用域
 */
 
 #include <iostream>
@@ -26,7 +27,7 @@ void abnormal_test_2(void);
 void using_test(void);
 void namespace_test_1(void);
 void namespace_test_2(void);
-
+void namespace_test_3_1(void);
 
 int main()
 {
@@ -35,7 +36,7 @@ int main()
     //using_test();
     //namespace_test_1();
     //namespace_test_2();
-
+    namespace_test_3_1();
 
     std::cout << "\n测试完成\n";
     return 0;
@@ -137,6 +138,32 @@ namespace space_1
 
 }
 
+int var = 1111;
+namespace space_4
+{
+    int var = 222;
+    namespace space_5
+    {
+        int var = 33;
+        void namespace_test_3_3(void)
+        {
+            std::cout << "(in space_4::space_5) var = " << var << std::endl;
+            std::cout << "space_4::var = " << space_4::var << std::endl;
+            //   std::cout << "space_5::var = " << space_5::var << std::endl;  //无法直接找到
+            std::cout << "space_4::space_5::var = " << space_4::space_5::var << std::endl;
+            std::cout << "::var = " << ::var << std::endl;
+        }
+    }
+    void namespace_test_3_2(void)
+    {
+        std::cout << "(in space_4) var = " << var << std::endl;
+        std::cout << "space_4::var = " << space_4::var << std::endl;
+        //   std::cout << "space_5::var = " << space_5::var << std::endl;  //无法直接找到
+        std::cout << "space_4::space_5::var = " << space_4::space_5::var << std::endl;
+        std::cout << "::var = " << ::var << std::endl;
+    }
+}
+
 void namespace_test_1(void)
 {
     space_1::fun_report();
@@ -148,5 +175,22 @@ void namespace_test_2(void)
     space_1::space_3::fun_report();
 }
 
+void namespace_test_3_1(void)
+{
+    std::cout << "(in main) var = " << var << std::endl;
+    std::cout << "space_4::var = " << space_4::var << std::endl;
+ //   std::cout << "space_5::var = " << space_5::var << std::endl;  //无法直接找到
+    std::cout << "space_4::space_5::var = " << space_4::space_5::var << std::endl;
+    std::cout << "::var = " << ::var << std::endl;
 
+    std::cout << std::endl;
+
+    space_4::namespace_test_3_2();
+
+    std::cout << std::endl;
+
+    space_4::space_5::namespace_test_3_3();
+
+    std::cout << std::endl;
+}
 
