@@ -36,7 +36,7 @@ int main()
     //using_test();
     //namespace_test_1();
     //namespace_test_2();
-    namespace_test_3_1();
+    //namespace_test_3_1();
 
     std::cout << "\n测试完成\n";
     return 0;
